@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bbd7929505a935a4888c5125004f170d
-timeCreated: 1525078079
+timeCreated: 1525110592
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -16,7 +16,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: lineMat
-    second: {fileID: 2100000, guid: 4bf41c695ec6ee84fa9a078889769060, type: 2}
+    second: {fileID: 2100000, guid: 5da81ac3918b03d45816d0fab5fdd16e, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
