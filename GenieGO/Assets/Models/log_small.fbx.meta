@@ -1,22 +1,28 @@
 fileFormatVersion: 2
-guid: d85df4bcac9e56a4ca1ab94c33724b50
-timeCreated: 1525078079
+guid: e6477f89894395a4391647a44c32d85e
+timeCreated: 1525121855
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: lineMat
+    2100000: natureKit-wood
+    2100002: natureKit-woodLight
     2300000: //RootNode
     3300000: //RootNode
-    4300000: link
+    4300000: log_small
   externalObjects:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: lineMat
-    second: {fileID: 2100000, guid: 89ec1418edb928342805fa9d9c0f1f96, type: 2}
+      name: natureKit-wood
+    second: {fileID: 2100000, guid: 34103635ae845cb42a4a661e1595e25b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: natureKit-woodLight
+    second: {fileID: 2100000, guid: e3e8c1dc87aa28243967f2f86cadc186, type: 2}
   materials:
     importMaterials: 1
     materialName: 0
@@ -46,7 +52,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 10
+    globalScale: 0.2
     meshCompression: 0
     addColliders: 0
     importVisibility: 1

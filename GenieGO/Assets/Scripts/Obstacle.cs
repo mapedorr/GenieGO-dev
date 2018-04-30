@@ -2,15 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour {
-
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+[RequireComponent (typeof (BoxCollider))]
+public class Obstacle : MonoBehaviour
+{
+	void OnDrawGizmos ()
+	{
+		Gizmos.color = new Color (1f, 0f, 0f, 0.5f);
+		Gizmos.DrawCube (transform.position, new Vector3 (1f, 1f, 1f));
 	}
 }
