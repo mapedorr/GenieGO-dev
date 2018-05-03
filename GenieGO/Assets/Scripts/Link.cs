@@ -23,7 +23,11 @@ public class Link : MonoBehaviour
 	// TODO: define privates
 
 	// ══════════════════════════════════════════════════════════════ METHODS ════
-	// makes the link grow from its starting position to its target position
+	/// <summary>
+	/// Makes the link grow from its starting position to its target position
+	/// </summary>
+	/// <param name="startPos">The starting point for the link</param>
+	/// <param name="endPos"The target point for the link></param>
 	public void DrawLink (Vector3 startPos, Vector3 endPos)
 	{
 		// set the original size of the link
@@ -45,5 +49,23 @@ public class Link : MonoBehaviour
 			"easetype", easeType,
 			"delay", iTweenDelay
 		));
+	}
+
+	public void DeleteLink ()
+	{
+		// start the iTween that will make the line grow to toward its target
+		iTween.ScaleTo (gameObject, iTween.Hash (
+			"time", scaleTime,
+			"scale", 0f,
+			"easetype", easeType,
+			"delay", iTweenDelay,
+			"oncomplete", "GeometryInvisible",
+			"oncompletetarget", gameObject
+		));
+	}
+
+	public void GeometryInvisible ()
+	{
+		Destroy (gameObject);
 	}
 }

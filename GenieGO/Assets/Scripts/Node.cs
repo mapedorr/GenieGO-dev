@@ -42,6 +42,9 @@ public class Node : MonoBehaviour
 	bool m_initialized = false;
 
 	// ══════════════════════════════════════════════════════════════ METHODS ════
+	/// <summary>
+	/// Called when the script instance is being loaded.
+	/// </summary>
 	void Awake ()
 	{
 		// get the reference to the BoardManager component
@@ -52,28 +55,36 @@ public class Node : MonoBehaviour
 
 	void Start ()
 	{
+		SetNodeDefaults ();
+	}
+
+	public void SetNodeDefaults ()
+	{
+		// set the node to its default state
+		isActive = true;
+		m_neighborNodes.Clear ();
+		m_linkedNodes.Clear ();
+		m_initialized = false;
+
 		if (mesh != null)
 		{
 			mesh.transform.localScale = Vector3.zero;
 
-			// check if beneath the node is there inactive ground
+			// check if beneath the node is there an inactive ground
 			Vector3 checkDirection = transform.position + Vector3.down;
 			RaycastHit raycastHit;
 
-			if (Physics.Raycast (transform.position, checkDirection, out raycastHit,
+			if (!Physics.Raycast (transform.position, checkDirection, out raycastHit,
 					BoardManager.spacing + 0.1f, inactiveGroundLayer))
 			{
-				if (raycastHit.collider == null)
+				if (m_board != null)
 				{
-					if (m_board != null)
-					{
-						m_neighborNodes = FindNeighbors (m_board.AllNodes);
-					}
+					m_neighborNodes = FindNeighbors (m_board.AllNodes);
 				}
-				else
-				{
-					isActive = false;
-				}
+			}
+			else
+			{
+				isActive = false;
 			}
 		}
 	}
@@ -127,9 +138,29 @@ public class Node : MonoBehaviour
 		// }
 	}
 
+	public void HideMesh ()
+	{
+		if (mesh != null)
+		{
+			iTween.ScaleTo (mesh, iTween.Hash (
+				"time", scaleTime,
+				"scale", Vector3.zero,
+				"easetype", easeType,
+				"delay", 0f,
+				"oncomplete", "GeometryInvisible",
+				"oncompletetarget", gameObject
+			));
+		}
+	}
+
+	public void GeometryInvisible ()
+	{
+		m_board.VisibleNodes--;
+	}
+
 	public void InitNode ()
 	{
-		if (!m_initialized)
+		if (!m_initialized && isActive)
 		{
 			ShowMesh ();
 			InitNeighbors ();
@@ -150,7 +181,7 @@ public class Node : MonoBehaviour
 		foreach (Node n in m_neighborNodes)
 		{
 
-			if (!m_linkedNodes.Contains (n))
+			if (n.isActive && !m_linkedNodes.Contains (n))
 			{
 				Obstacle obstacle = FindObstacle (n);
 				if (obstacle == null)
@@ -197,6 +228,12 @@ public class Node : MonoBehaviour
 				targetNode.LinkedNodes.Add (this);
 			}
 		}
+	}
+
+	void OnDrawGizmos ()
+	{
+		Gizmos.color = Color.green;
+		Gizmos.DrawLine (transform.position, transform.position + Vector3.down);
 	}
 
 }
